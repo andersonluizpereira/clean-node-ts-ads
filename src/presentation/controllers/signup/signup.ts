@@ -30,11 +30,16 @@ export class SignUpController implements Controller {
     } catch (error) {
       return serverError()
     } finally {
-      this.addAccount.add({
-        name,
-        email,
-        password
-      })
+      try {
+        this.addAccount.add({
+          name,
+          email,
+          password
+        })
+      } catch (error) {
+        // eslint-disable-next-line no-unsafe-finally
+        return serverError()
+      }
     }
   }
 }
